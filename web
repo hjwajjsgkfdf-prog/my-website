@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Aurelia – Reservations &amp; Waitlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0c0a;--panel:#171411;--panel2:#1f1b17;--line:#2e2822;--ink:#f4ece1;--mute:#a89b8b;--gold:#c9a45c;--gold2:#e3c98b;--ok:#7bc99a;--okbg:rgba(123,201,154,.12);--bad:#e88a80;--badbg:rgba(232,138,128,.13);--warn:#e8b95a;--warnbg:rgba(232,185,90,.13)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+.serif{font-family:'Playfair Display',Georgia,serif}
+nav{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:20px 5vw}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;letter-spacing:1px}
+.brand svg{width:30px;height:30px}
+nav a{color:var(--ink);text-decoration:none;font-size:.85rem;border:1px solid var(--gold);padding:8px 18px;border-radius:99px;letter-spacing:.5px}
+nav a:hover{background:var(--gold);color:#1a1409}
+.hero{position:relative;min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 6vw 80px;background:radial-gradient(circle at 30% 20%,#3a2a18,#0e0c0a 70%);overflow:hidden}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,12,10,.35),var(--bg))}
+.hero-in{position:relative;z-index:2;max-width:760px}
+.eyebrow{color:var(--gold2);letter-spacing:4px;font-size:.75rem;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.1;margin:14px 0}
+.hero h1 em{color:var(--gold2);font-style:italic}
+.hero p{color:#d8cdbf;font-size:1.05rem;margin:0 auto 26px;max-width:560px}
+.cta{display:inline-block;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1409;text-decoration:none;font-weight:600;padding:14px 32px;border-radius:99px;letter-spacing:.5px;border:0;cursor:pointer;font-size:.95rem}
+.cta:hover{filter:brightness(1.08)}
+.perks{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:34px;color:var(--mute);font-size:.82rem}
+.perks b{color:var(--gold2);font-family:'Playfair Display',serif;font-size:1.5rem;display:block}
+.sec{max-width:1200px;margin:0 auto;padding:50px 5vw 10px}
+.sec h2{font-family:'Playfair Display',Georgia,serif;font-size:1.9rem;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 24px}
+.gal{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px}
+.ph{position:relative;height:250px;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#3a2a18,#171411);border:1px solid var(--line)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.ph:hover img{transform:scale(1.06)}
+.ph span{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 12px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-family:'Playfair Display',serif;font-size:1.05rem}
+@media(max-width:800px){.gal{grid-template-columns:1fr}.ph{height:200px}}
+.wrap{max-width:1200px;margin:0 auto;padding:30px 5vw 50px;display:grid;grid-template-columns:360px 1fr;gap:22px;align-items:start}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:22px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.card h3{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;margin:0 0 4px;color:var(--gold2)}
+.card .sub{font-size:.82rem;margin-bottom:14px}
+.sticky{position:sticky;top:16px}
+label{display:block;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--mute);margin:12px 0 5px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#0f0d0b;color:var(--ink);font:inherit;font-size:.92rem}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cta.full{width:100%;margin-top:18px;text-align:center}
+.err{color:var(--bad);font-size:.82rem;min-height:1.2em;margin-top:10px}
+.note{color:var(--mute);font-size:.76rem;margin-top:8px}
+.scroll{overflow-x:auto}
+table{border-collapse:separate;border-spacing:4px;width:100%;min-width:600px;font-size:.8rem}
+th{color:var(--mute);font-weight:500;padding:6px 4px;white-space:nowrap}
+td{text-align:center;padding:9px 4px;border-radius:8px}
+td.free{background:var(--okbg);color:var(--ok)}
+td.busy{background:var(--badbg);color:var(--bad);font-weight:600}
+.stats{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.stat{flex:1;min-width:100px;background:#0f0d0b;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;color:var(--mute);font-size:.72rem;letter-spacing:1px;text-transform:uppercase}
+.stat b{display:block;font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--ink);letter-spacing:0}
+ul{list-style:none;margin:0;padding:0}
+li.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+li.row small{display:block;color:var(--mute);margin-top:2px}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.7rem;font-weight:600;margin-left:6px}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-wait{background:var(--warnbg);color:var(--warn)}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--bad);padding:6px 14px;border-radius:99px;cursor:pointer;font:inherit;font-size:.78rem}
+.ghost:hover{background:var(--badbg);border-color:var(--bad)}
+.empty{color:var(--mute);font-size:.88rem;padding:8px 0}
+.log li{font-size:.8rem;padding:9px 0;border-bottom:1px solid var(--line);color:#d6cabb}
+.log time{color:var(--gold);margin-right:8px;font-weight:600}
+.log{max-height:260px;overflow:auto}
+footer{text-align:center;color:var(--mute);font-size:.78rem;padding:30px 5vw 40px;border-top:1px solid var(--line)}
+#toast{position:fixed;right:18px;bottom:18px;max-width:320px;background:var(--gold);color:#1a1409;padding:13px 16px;border-radius:12px;font-size:.85rem;font-weight:500;opacity:0;transform:translateY(12px);transition:.3s;pointer-events:none;z-index:9}
+#toast.show{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<nav>
+  <div class="brand"><svg viewBox="0 0 32 32" fill="none" stroke="#c9a45c" stroke-width="1.6"><circle cx="16" cy="16" r="13"/><circle cx="16" cy="16" r="8"/><path d="M16 3v5M16 24v5M3 16h5M24 16h5"/></svg>MAISON AURELIA</div>
+  <a href="#book">Reserve</a>
+</nav>
+
+<header class="hero">
+  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=70" alt="" onerror="this.remove()">
+  <div class="hero-in">
+    <div class="eyebrow">Fine dining · Est. 2026</div>
+    <h1>An evening worth <em>waiting</em> for</h1>
+    <p>Reserve your table in seconds. If we’re full, join our smart waitlist and we’ll notify you the moment a seat opens.</p>
+    <a class="cta" href="#book">Reserve a table</a>
+    <div class="perks">
+      <div><b>6</b>Tables</div><div><b>7</b>Daily slots</div><div><b>Live</b>Waitlist</div><div><b>SMS</b>Alerts</div>
+    </div>
+  </div>
+</header>
+
+<section class="sec">
+  <h2>The experience</h2>
+  <p class="sub">Candlelit interiors, seasonal menus and service that never keeps you waiting.</p>
+  <div class="gal">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=70" alt="Plated dish" onerror="this.remove()"><span>Chef’s tasting menu</span></div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=700&q=70" alt="Dining room" onerror="this.remove()"><span>The main dining room</span></div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=700&q=70" alt="Restaurant interior" onerror="this.remove()"><span>Private tables</span></div>
+  </div>
+</section>
+
+<div class="wrap" id="book">
+  <aside class="sticky">
+    <div class="card">
+      <h3>Reserve your table</h3>
+      <p class="sub">Confirmed instantly, or placed on the waitlist.</p>
+      <label for="name">Guest name</label><input id="name" placeholder="e.g. Aman Singh">
+      <label for="phone">Phone number</label><input id="phone" placeholder="10-digit mobile" inputmode="numeric" maxlength="10">
+      <div class="two">
+        <div><label for="size">Guests</label><input id="size" type="number" min="1" max="8" value="2"></div>
+        <div><label for="slot">Time</label><select id="slot"></select></div>
+      </div>
+      <label for="date">Date</label><select id="date"></select>
+      <button class="cta full" id="book-btn">Reserve / Join waitlist</button>
+      <div class="err" id="err"></div>
+      <div class="note">Smallest suitable table is assigned automatically. Waitlisted guests are promoted in order when a table frees up.</div>
+    </div>
+    <div class="card">
+      <h3>Notification log</h3>
+      <p class="sub">Simulated SMS sent to guests</p>
+      <ul class="log" id="log"></ul>
+    </div>
+  </aside>
+
+  <section>
+    <div class="card">
+      <h3>Live availability</h3>
+      <p class="sub">Tables by time slot for the selected date</p>
+      <div class="stats" id="stats"></div>
+      <div class="scroll"><table id="grid"></table></div>
+    </div>
+    <div class="card">
+      <h3>Reservations</h3>
+      <p class="sub">Cancel any booking to free the table for the waitlist</p>
+      <ul id="resList"></ul>
+    </div>
+    <div class="card">
+      <h3>Waitlist</h3>
+      <p class="sub">First come, first served</p>
+      <ul id="waitList"></ul>
+    </div>
+    <button class="ghost" id="reset" style="color:var(--mute)">Reset all data</button>
+  </section>
+</div>
+<footer>© 2026 Maison Aurelia · Restaurant Reservation &amp; Waitlist Management · Built with HTML, CSS &amp; JavaScript</footer>
+<div id="toast"></div>
+
+<script>
+const TABLES=[{id:'T1',cap:2},{id:'T2',cap:2},{id:'T3',cap:4},{id:'T4',cap:4},{id:'T5',cap:6},{id:'T6',cap:8}];
+const SLOTS=['12:00','13:00','14:00','18:00','19:00','20:00','21:00'];
+const KEY='maison_aurelia_v1';
+let S={res:[],wait:[],log:[],next:1};
+try{const raw=localStorage.getItem(KEY);if(raw)S=JSON.parse(raw)}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function dates(){const a=[];for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()+i);a.push(d.toISOString().slice(0,10))}return a}
+function fmt(d){return new Date(d+'T00:00:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),3200)}
+function notify(phone,msg){
+  const time=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  S.log.unshift({time,text:'SMS to '+phone+': '+msg});S.log=S.log.slice(0,40);toast('SMS sent to '+phone);
+}
+function findTable(date,slot,size){
+  return TABLES.filter(t=>t.cap>=size&&!S.res.some(r=>r.date===date&&r.slot===slot&&r.table===t.id))
+    .sort((a,b)=>a.cap-b.cap)[0];
+}
+function addRes(g,t){S.res.push({id:S.next++,name:g.name,phone:g.phone,size:g.size,date:g.date,slot:g.slot,table:t.id})}
+function book(){
+  const name=$('name').value.trim(),phone=$('phone').value.trim(),size=parseInt($('size').value,10);
+  const date=$('date').value,slot=$('slot').value;
+  let e='';
+  if(name.length<2)e='Please enter the guest name.';
+  else if(!/^\d{10}$/.test(phone))e='Enter a valid 10-digit phone number.';
+  else if(!(size>=1&&size<=8))e='Party size must be between 1 and 8.';
+  else if(S.res.concat(S.wait).some(r=>r.phone===phone&&r.date===date&&r.slot===slot))e='This number already has a booking or waitlist entry for that slot.';
+  $('err').textContent=e;if(e)return;
+  const g={name,phone,size,date,slot},t=findTable(date,slot,size);
+  if(t){addRes(g,t);notify(phone,'Hi '+name+', your table '+t.id+' ('+t.cap+' seats) is confirmed for '+fmt(date)+' at '+slot+'.')}
+  else{S.wait.push({id:S.next++,...g,at:Date.now()});
+    const pos=S.wait.filter(w=>w.date===date&&w.slot===slot).length;
+    notify(phone,'Hi '+name+', all tables are full for '+fmt(date)+' '+slot+'. You are #'+pos+' on the waitlist.')}
+  $('name').value='';$('phone').value='';save();render();
+}
+function promote(date,slot){
+  let again=true;
+  while(again){
+    again=false;
+    for(const w of S.wait.filter(x=>x.date===date&&x.slot===slot)){
+      const t=findTable(date,slot,w.size);
+      if(t){
+        S.wait=S.wait.filter(x=>x.id!==w.id);addRes(w,t);
+        notify(w.phone,'Good news '+w.name+'! A table opened up: '+t.id+' is now confirmed for '+fmt(date)+' at '+slot+'.');
+        again=true;break;
+      }
+    }
+  }
+}
+function cancelRes(id){
+  const r=S.res.find(x=>x.id===id);if(!r)return;
+  S.res=S.res.filter(x=>x.id!==id);
+  notify(r.phone,'Your reservation for '+fmt(r.date)+' at '+r.slot+' has been cancelled.');
+  promote(r.date,r.slot);save();render();
+}
+function leaveWait(id){
+  const w=S.wait.find(x=>x.id===id);if(!w)return;
+  S.wait=S.wait.filter(x=>x.id!==id);
+  notify(w.phone,'You have been removed from the waitlist for '+fmt(w.date)+' at '+w.slot+'.');save();render();
+}
+function render(){
+  const d=$('date').value;
+  let h='<tr><th></th>'+SLOTS.map(s=>'<th>'+s+'</th>').join('')+'</tr>';
+  TABLES.forEach(t=>{
+    h+='<tr><th>'+t.id+' · '+t.cap+' seats</th>';
+    SLOTS.forEach(s=>{
+      const r=S.res.find(x=>x.date===d&&x.slot===s&&x.table===t.id);
+      h+=r?'<td class="busy">'+esc(r.name.split(' ')[0])+'</td>':'<td class="free">Open</td>';
+    });h+='</tr>';
+  });
+  $('grid').innerHTML=h;
+  const booked=S.res.filter(r=>r.date===d).length,total=TABLES.length*SLOTS.length;
+  $('stats').innerHTML='<div class="stat"><b>'+(total-booked)+'</b>Open</div><div class="stat"><b>'+booked+'</b>Booked</div><div class="stat"><b>'+S.wait.filter(w=>w.date===d).length+'</b>Waiting</div>';
+  const rs=[...S.res].sort((a,b)=>(a.date+a.slot).localeCompare(b.date+b.slot));
+  $('resList').innerHTML=rs.length?rs.map(r=>'<li class="row"><div><b>'+esc(r.name)+'</b><span class="badge b-ok">'+r.table+'</span><small>'+fmt(r.date)+' · '+r.slot+' · party of '+r.size+' · '+esc(r.phone)+'</small></div><button class="ghost" onclick="cancelRes('+r.id+')">Cancel</button></li>').join(''):'<div class="empty">No reservations yet.</div>';
+  $('waitList').innerHTML=S.wait.length?S.wait.map(w=>{
+    const pos=S.wait.filter(x=>x.date===w.date&&x.slot===w.slot&&x.at<=w.at).length;
+    return '<li class="row"><div><b>'+esc(w.name)+'</b><span class="badge b-wait">#'+pos+'</span><small>'+fmt(w.date)+' · '+w.slot+' · party of '+w.size+' · '+esc(w.phone)+'</small></div><button class="ghost" onclick="leaveWait('+w.id+')">Remove</button></li>'}).join(''):'<div class="empty">Waitlist is empty.</div>';
+  $('log').innerHTML=S.log.length?S.log.map(l=>'<li><time>'+l.time+'</time>'+esc(l.text)+'</li>').join(''):'<div class="empty">No notifications yet.</div>';
+}
+$('date').innerHTML=dates().map(x=>'<option value="'+x+'">'+fmt(x)+'</option>').join('');
+$('slot').innerHTML=SLOTS.map(s=>'<option>'+s+'</option>').join('');
+$('date').onchange=render;$('book-btn').onclick=book;
+$('reset').onclick=()=>{if(confirm('Clear all reservations, waitlist and logs?')){S={res:[],wait:[],log:[],next:1};save();render()}};
+render();
+</script>
+</body>
+</html>
